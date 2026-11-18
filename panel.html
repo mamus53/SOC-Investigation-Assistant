@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://www.virustotal.com https://api.abuseipdb.com; object-src 'none'; base-uri 'none';">
+  <title>SOC Investigation Assistant</title>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="research.css">
+  <link rel="stylesheet" href="vt-panel.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><div class="mark"><img src="icons/bluefire-brand.png" alt="SOC Investigation Assistant dişli ve güvenlik logosu" width="36" height="36"></div><div><strong>SOC Investigation Assistant</strong><small>Dosya, süreç, DLL, script ve tehdit istihbaratı araştırması</small></div></div>
+  </header>
+  <main>
+    <section class="search card">
+      <label for="procInput">Process, script, DLL veya dosya yolu</label>
+      <div class="searchRow"><input id="procInput" maxlength="2048" spellcheck="false" autocomplete="off" placeholder="powershell.exe, comsvcs.dll, StartHidden.vbs..."/><button class="primary" id="analyzeBtn">Analiz Et</button></div>
+      <div id="suggest" class="suggest" role="listbox" aria-label="İsim önerileri" hidden></div>
+    </section>
+    <section class="card output" id="result" aria-live="polite"><p class="muted">Kütüphane hazır. Dosya veya araç adı gir.</p></section>
+
+    <section class="card vt-card" aria-label="VirusTotal araştırması">
+      <div class="provider-switch">
+        <button id="vtOpen" class="provider-button" title="VirusTotal" aria-label="VirusTotal araştırmasını aç" aria-expanded="false" aria-controls="vtArea"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M5 5h22v22H5l11-11Z" fill="none" stroke="currentColor" stroke-width="2.2"/></svg><span>VirusTotal</span></button>
+        <button id="abOpen" class="provider-button abuse" title="AbuseIPDB" aria-label="AbuseIPDB IP araştırmasını aç" aria-expanded="false" aria-controls="abArea"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M16 3 27 7v9c0 6-11 13-11 13S5 22 5 16V7Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 9v9m0 3v2" stroke="currentColor" stroke-width="3"/></svg><span>AbuseIPDB</span></button>
+      </div>
+      <div id="vtArea" hidden>
+        <p class="hint">Dosya çalıştırılmaz veya yüklenmez. Sorguladığınız hash, IP, domain veya URL VirusTotal’a gönderilir. Gizli/kurum içi göstergeleri paylaşmayın. İnternet ve size ait API anahtarı gerekir.</p>
+        <button id="vtDrop" class="vt-drop" type="button">Dosyayı buraya sürükleyip bırakın veya seçin<span>Tek dosya · En fazla 100 MB · Yalnız yerel hash hesaplama</span></button>
+        <input id="vtFile" type="file" hidden>
+        <label for="vtHash">Hash, IP, domain veya URL</label>
+        <div class="searchRow"><input id="vtHash" autocomplete="off" spellcheck="false" maxlength="4096" placeholder="Hash, IP, domain veya URL girin"><button id="vtQuery" class="primary">Sorgula</button></div>
+        <p id="vtSelected" class="hint"></p>
+        
+        <p id="vtStatus" role="status" aria-live="polite" class="hint"></p>
+        <div id="vtNetwork" hidden></div>
+        <div id="vtReport" hidden>
+          <h2 id="vtName"></h2><p id="vtIdentity" class="hint"></p><p id="vtReportHash" class="mono"></p>
+          <a id="vtLink" class="sourceLink" target="_blank" rel="noopener noreferrer">VirusTotal raporunu aç ↗</a>
+          <div class="vt-tabs" role="tablist" aria-label="Rapor bölümleri"><button role="tab" id="vtTab0" aria-selected="true" aria-controls="vtDetections">Tespit sonuçları</button><button role="tab" id="vtTab1" aria-selected="false" aria-controls="vtBehaviour">Davranış özeti</button><button role="tab" id="vtTab2" aria-selected="false" aria-controls="vtSignature">Dijital imza</button></div><details id="vtDetections" open><summary>Tespit sonuçları</summary><div id="vtDetectionBody"></div></details>
+          <details id="vtBehaviour"><summary>Davranış özeti</summary><div id="vtBehaviourBody"></div></details>
+          <details id="vtSignature"><summary>Dijital imza</summary><div id="vtSignatureBody"></div></details>
+        </div>
+      </div>
+      <details id="vtSettings" class="vt-settings"><summary>API ayarları</summary>
+        <label for="vtKey">VirusTotal API anahtarı</label>
+        <div class="searchRow"><input id="vtKey" type="password" autocomplete="off" spellcheck="false" maxlength="256" placeholder="API anahtarınızı girin"><button id="vtForget" class="secondary">Anahtarı sil</button></div>
+        <p class="hint">Anahtar bu cihazdaki uzantı ayarlarında saklanır; tarayıcı kapanınca silinmez. Kullanımınız VirusTotal lisans koşullarına uygun olmalıdır.</p>
+        <div class="vt-key-help">
+          <h3>API anahtarı nasıl alınır?</h3>
+          <ol>
+            <li><a href="https://www.virustotal.com/gui/join-us" target="_blank" rel="noopener noreferrer">VirusTotal hesabı oluşturun ↗</a> veya giriş yapın.</li>
+            <li>İstenirse e-posta adresinizi doğrulayın.</li>
+            <li>Profil menüsünden <strong>API key</strong> bölümünü açıp anahtarınızı kopyalayın.</li>
+            <li>Anahtarı yukarıya yapıştırın; hash girip <strong>Sorgula</strong> düğmesine basın.</li>
+          </ol>
+          <a class="sourceLink" href="https://docs.virustotal.com/reference/getting-started" target="_blank" rel="noopener noreferrer">Resmî API kılavuzu ↗</a>
+        </div>
+      </details>
+      <div id="abArea" hidden>
+        <p class="hint">Yalnız sorguladığınız IP AbuseIPDB’ye gönderilir. Şikâyet oluşturulmaz; cihazınızın bağlantıları taranmaz.</p>
+        <label for="abInput">IP adresi (IPv4 / IPv6)</label><div class="searchRow"><input id="abInput" maxlength="64" placeholder="Örn. 8.8.8.8" autocomplete="off" spellcheck="false"><button id="abQuery" class="primary">Sorgula</button></div>
+        <p id="abStatus" class="hint" role="status"></p><div id="abReport" hidden></div>
+        <details id="abSettings" class="vt-settings"><summary>AbuseIPDB API ayarları</summary><label for="abKey">AbuseIPDB API anahtarı</label><div class="searchRow"><input id="abKey" type="password" autocomplete="off" maxlength="256"><button id="abForget" class="secondary">Anahtarı sil</button></div><p class="hint">Anahtar bu cihazda saklanır. <a href="https://www.abuseipdb.com/account/api" target="_blank" rel="noopener noreferrer">Hesabınızdaki API bölümünden anahtar alın ↗</a></p></details>
+      </div>
+    </section>
+  </main>
+<script src="app.bundle.js" defer></script>
+<script src="network-panel.js" defer></script>
+<script src="vt-panel.js" defer></script>
+</body>
+</html>
+

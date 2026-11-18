@@ -1,0 +1,20 @@
+23.3 kaynak notu
+
+Yeni envanter SOC Process Analyzer tarafından seçilmiş ve dönüştürülmüştür;
+NIST tarafından üretilmiş veya onaylanmış bir yazılım/dağıtım değildir.
+Kaynak gözlemler: NIST NSRL RDS 2026.09.1 modern minimal delta.
+https://www.nist.gov/itl/csd/secure-systems-and-applications/national-software-reference-library-nsrl/nsrl-download-0
+NSRL yeniden dağıtım politikası: kamu malı veri; türetilmiş seçki özgün RDS değildir.
+https://www.nist.gov/itl/csd/secure-systems-and-applications/national-software-reference-library-nsrl/subscribe-0
+Arşiv SHA-1 doğrulandı. Örnek dosya SHA-256 değerleri yalnız kaynak gözlemidir;
+kullanıcının dosyasının hashinin eşleştiği iddia edilmez. Tam RDS/SQL bu pakette yoktur.
+
+Winbindex x64/ARM64/Insider ve Microsoft Sysinternals Live indeksleri mevcut
+katalogla karşılaştırıldı; yalnız 11 yeni ad eklendi. Önceki kaynaklar yeniden
+aktarılmadı. Kaynak bağlantıları kayıtların Dış kaynaklarda araştır alanındadır.
+https://winbindex.m417z.com/
+https://live.sysinternals.com/
+
+Windows açıklamaları Microsoft Learn ve resmî proje belgelerinden Türkçe sentezdir.
+Özel işlev ve konum iddiaları ürün/sürüm bağlamında değerlendirilmelidir.
+Önceki MITRE ve diğer kaynak bildirimleri geçerlidir; marka sahipliği ilgili kurumlardadır.
