@@ -1,0 +1,23 @@
+SOC Investigation Assistant — Kurulum
+Dosya, süreç, DLL, script ve tehdit istihbaratı araştırması
+
+1. ZIP dosyasının tamamını bir klasöre çıkarın. Klasörü sonradan silmeyin/taşımayın.
+2. Chrome adres çubuğuna chrome://extensions yazın.
+3. Sağ üstten Geliştirici modu'nu açın.
+4. Paketlenmemiş öğe yükle'ye basın; içindeki SOC-Investigation-Assistant klasörünü seçin.
+5. Chrome araç çubuğundaki yapboz (Uzantılar) simgesine basıp uygulamayı sabitleyin.
+6. Uygulama simgesi yan paneli açar. Sayfadaki dosya adı, hash, IP, domain veya HTTP/HTTPS adresini
+   seçin; çıkan amblemin üzerine gelin ve Analiz Et'e basın.
+
+Dosya adları çevrimdışı araştırılır. Hash/domain/URL VirusTotal'a; IP, yapılandırılmışsa
+VirusTotal ve AbuseIPDB'ye gönderilir. İlk kullanımda servis API ayarlarına kendi
+anahtarınızı girin ve Sorgula düğmesiyle erişim iznini verin. Anahtarlar cihazdaki
+uzantı ayarlarında saklanır. Sürüklenen dosya yüklenmez; yerelde hash hesaplanır.
+
+Güncelleme: Eski uzantının kullandığı klasörün içeriğini yeni sürümle değiştirip
+chrome://extensions sayfasındaki Yenile düğmesine basın. Açık web sayfalarını da
+yenileyin. Başka klasörden yükleyecekseniz eski kopyayı devre dışı bırakın.
+Tarayıcı uzantısını kaldırmak kayıtlı ayarları silebilir.
+
+Bu araç araştırma ipucu verir; isim eşleşmesi veya sıfır tespit kesin karar değildir.
+VirusTotal ve AbuseIPDB kullanımı kendi hesap/lisans koşullarınıza tabidir.
