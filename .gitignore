@@ -1,0 +1,27 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local/editor files
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Generated packages / build output
+*.crx
+*.zip
+*.7z
+*.tar
+*.tar.gz
+node_modules/
+dist/
+build/
+coverage/
